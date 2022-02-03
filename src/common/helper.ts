@@ -366,7 +366,14 @@ async function getReadableFromProtocolStream(
       if (response.eof) {
         this.push(null);
         eof = true;
-        await client.send('IO.close', { handle });
+        //////////////////////////
+		//     TEMP FIX         //
+		//////////////////////////
+		try {
+		  await client.send('IO.close', { handle });
+		} catch (err) {
+		  console.log(err);
+		}
       }
     },
   });
